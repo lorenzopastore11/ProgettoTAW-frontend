@@ -1,0 +1,4 @@
+{
+    "connectionString": "mongodb://localhost:27017/dbproject",
+    "secret": "E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi"
+}
