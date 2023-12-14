@@ -1,0 +1,36 @@
+<div class="p-4">
+    <div class="container">
+        <h1>Piatti</h1>
+        <a routerLink="add" class="btn btn-sm btn-success mb-2">Aggiungi piatto</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 30%">Nome</th>
+                    <th style="width: 10%" ><div align="right">Prezzo</div></th>
+                    <th style="width: 10%">Tipo</th>
+                    <th style="width: 50%">Descrizione</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dish of dishes">
+                    <td>{{dish.name}}</td>
+                    <td align="right">{{dish.price | currency: '€' : 'code' : '1.2' : 'it-IT'}}</td>
+                    <td>{{dish.type}}</td>
+                    <td>{{dish.description}}</td>
+                    <td style="white-space: nowrap">
+                        <a routerLink="edit/{{dish.id}}" class="btn btn-sm btn-primary me-1">Modifica</a>
+                        &nbsp;<button (click)="deleteDish(dish.id)" class="btn btn-sm btn-danger" [disabled]="dish.isDeleting">
+                            <span *ngIf="dish.isDeleting" class="spinner-border spinner-border-sm"></span>
+                            <span *ngIf="!dish.isDeleting">Cancella</span>
+                        </button>
+                    </td>
+                </tr>
+                <!--<tr *ngIf="!tables">
+                    <td colspan="4" class="text-center">
+                        <span class="spinner-border spinner-border-lg align-center"></span>
+                    </td>
+                </tr>-->
+            </tbody>
+        </table>
+    </div>
+</div>

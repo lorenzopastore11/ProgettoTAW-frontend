@@ -1,0 +1,69 @@
+
+<a routerLink="/waiters" class="btn btn-link">Torna all'elenco</a>
+<div *ngIf= "!this.orderId" class="p-4">
+    
+    <form [formGroup] = "form" (ngSubmit) = "onSubmit()">
+        <div class="container">
+            <h1>Crea comanda del tavolo {{tableId}} </h1>
+            <div>&nbsp;</div>
+            <div *ngIf= "this.tables.seats" class="mb-3 col">
+                <label class="form-label">Inserire il numero dei coperti: </label>
+                <input type="number" formControlName="covers" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.covers.errors }" />
+                <div *ngIf="submitted && f.covers.errors" class="invalid-feedback">
+                    <div *ngIf="f.covers.errors.required">Il numero dei coperti è obbligatorio</div>
+                    <div *ngIf="f.covers.errors.min">Il numero dei coperti inserito deve essere almeno pari a 1</div>
+                    <div *ngIf="f.covers.errors.max">Il numero dei coperti inserito deve essere minore o uguale al numero massimo di posti del tavolo (pari a {{this.tables.seats}})</div>
+                </div>
+            </div>
+            <div>&nbsp;</div>
+            <div class="mb-3">
+                <button [disabled]="submitting" class="btn btn-primary">
+                    <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                    Salva
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div *ngIf="this.orderId" class="p-4">
+    <td *ngIf="this.orderId" style="white-space: nowrap">
+        <h1>Comanda numero {{orderId}} del tavolo {{tableId}} </h1>
+        <a routerLink="add/{{orderId}}" class="btn btn-sm btn-success mb-2">Aggiungi piatti</a>
+        &nbsp; <p>Il numero di coperti è {{this.orders[0].covers}}</p>
+    </td>
+    <table *ngIf="this.orderId" class="table table-striped">
+       
+        <thead>
+            <tr>
+                <th style="width: 40%">Piatto</th>
+                <th style="width: 40%">Stato</th>
+                <th style="width: 40%">Tipo</th>
+                <th style="width: 40%"><div align="right">Prezzo</div></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let order of orders">
+            <tr *ngFor="let i of order.dishes.keys()">
+                <td>{{order.dishes[i].name}}</td>
+                <td>{{order.dishes[i].state}}</td>
+                <td>{{order.dishes[i].category}}</td>
+                <td align="right">{{order.dishes[i].price | currency: '€' : 'code' : '1.2' : 'it-IT'}}</td>
+                <td style="white-space: nowrap">
+                    <button *ngIf="orderId && order.dishes[i].state === 'INSERITO'" (click) = "switchstate(order.orderId, order.dishes[i].id)" class="btn btn-sm btn-primary me-1">
+                        Invia
+                    </button>
+                    &nbsp;<button *ngIf="orderId && order.dishes[i].state === 'INSERITO'" (click)="delete(order.orderId, order.dishes[i].id)"
+                    class="btn btn-sm btn-danger">
+                        Cancella
+                    </button>&nbsp;
+                    <button *ngIf="orderId && order.dishes[i].state === 'PRONTO'" (click) = "switchstate(order.orderId, order.dishes[i].id)"class="btn btn-sm btn-primary me-1">
+                        Consegna
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a routerLink="/waiters" *ngIf="check()" (click)="paymentRequest()" class="btn btn-sm btn-primary me-1">
+        Richiedi conto
+    </a>
+</div>
+    

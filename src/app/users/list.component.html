@@ -1,0 +1,37 @@
+<div class="p-4">
+    <div class="container">
+        <h1>Utenti</h1>
+        <a routerLink="add" class="btn btn-sm btn-success mb-2">Aggiungi utente</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 30%">First Name</th>
+                    <th style="width: 30%">Last Name</th>
+                    <th style="width: 30%">Username</th>
+                    <th style="width: 30%">Ruolo</th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.role}}</td>
+                    <td style="white-space: nowrap">
+                        <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary me-1">Modifica</a>
+                        &nbsp;<button *ngIf="!user.isDeleting && user.role!=='CASSIERE'" (click)="deleteUser(user.id)" class="btn btn-sm btn-danger"  [disabled]="user.isDeleting">
+                            <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+                            <span >Cancella</span>
+                        </button>
+                    </td>
+                </tr>
+                <!--<tr *ngIf="!users">
+                    <td colspan="4" class="text-center">
+                        <span class="spinner-border spinner-border-lg align-center"></span>
+                    </td>
+                </tr>-->
+            </tbody>
+        </table>
+    </div>
+</div>

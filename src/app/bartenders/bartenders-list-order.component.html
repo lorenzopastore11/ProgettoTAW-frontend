@@ -1,0 +1,29 @@
+<div class="p-4">
+    <div class="container">
+        <h1>Ordini</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    
+                    <th style="width: 40%">Numero tavolo</th>
+                    <th style="width: 40%">Id ordine</th>
+                    <th style="width: 40%">Bevanda</th>
+                    <th style="width: 40%">Stato</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let order of orders">
+                <tr *ngFor="let i of order.dishes.keys()">
+
+                    <td>{{order.tableId}}</td>
+                    <td>{{order.orderId}}</td>
+                    <td>{{order.dishes[i].name}}</td>
+                    <td>{{order.dishes[i].state}}</td>
+                
+                <td style="white-space: nowrap">
+                    <a routerLink="/bartenders" *ngIf = "order.dishes[i].state === 'INVIATO'" (click) = "switchstate(order.orderId, order.dishes[i].id)" class="btn btn-sm btn-primary me-1">Prepara</a>
+                    <a routerLink="/bartenders" *ngIf = "order.dishes[i].state === 'IN PREPARAZIONE'" (click) = "switchstate(order.orderId, order.dishes[i].id)" class="btn btn-sm btn-primary me-1">Termina</a>
+                </td>
+            </tbody>
+        </table>
+    </div>
+</div>

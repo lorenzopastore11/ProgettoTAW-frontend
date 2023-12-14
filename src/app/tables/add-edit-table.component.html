@@ -1,0 +1,52 @@
+<div class="p-4">
+    <div class="container">
+        <h1>{{title}}</h1>
+        <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label">Numero del tavolo</label>
+                    <input type="text" formControlName="tableId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.tableId.errors }" />
+                    <div *ngIf="submitted && f.tableId.errors" class="invalid-feedback">
+                        <div *ngIf="f.tableId.errors.required">Numero del tavolo richiesto</div>
+                    </div>
+                </div>
+                <div class="mb-3 col">
+                    <label class="form-label">Posti a sedere</label>
+                    <input type="text" formControlName="seats" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.seats.errors }" />
+                    <div *ngIf="submitted && f.seats.errors" class="invalid-feedback">
+                        <div *ngIf="f.seats.errors.required">Dato richiesto</div>
+                        <div *ngIf="f.seats.errors.min">Il tavolo deve avere almeno 1 posto</div>
+                        <div *ngIf="f.seats.errors.max">Numero di posti troppo elevato</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label">
+                        Cameriere referente
+                    </label>
+                    <select class="form-control" formControlName="assignedTo" [ngClass]="{ 'is-invalid': submitted && f.assignedTo.errors }" >
+                        <option></option>
+                        <option *ngFor="let user of users">
+                            {{user.username}}
+                        </option>
+                    </select>
+                    <!--<input type="text" formControlName="assignedTo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.assignedTo.errors }" />-->
+                    <div *ngIf="submitted && f.assignedTo.errors" class="invalid-feedback">
+                        <div *ngIf="f.assignedTo.errors.required">Cameriere referente richiesto</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button [disabled]="submitting" class="btn btn-primary">
+                    <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                    Salva
+                </button>
+                <a routerLink="/tables" class="btn btn-link">Cancella</a>
+            </div>
+        </form>
+        <div *ngIf="loading" class="text-center m-5">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
+    </div>
+</div>

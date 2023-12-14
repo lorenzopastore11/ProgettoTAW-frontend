@@ -1,0 +1,38 @@
+<div>&nbsp;</div>
+<div>
+    <h1>Statistiche</h1>
+</div>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 80%">Descrizione</th>
+                <th style="width: 20%">Valore</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>Numero totale di clienti presenti</td>
+            <td>{{numberOfClientsNow()}}</td>
+        </tbody>
+        <tbody>
+            <td>Numero totale di clienti dall'apertura</td>
+            <td>{{numberOfClients()}}</td>
+        </tbody>
+        <tbody>
+            <td>Percentuale di clienti presenti sul totale dei posti</td>
+            <td>{{percentageClientsPerSeats()}}%</td>
+        </tbody>
+        <tbody>
+            <td>Numero totale di piatti e bevande serviti ai clienti presenti</td>
+            <td>{{numberOfDishesServed()}}</td>
+        </tbody>
+        <tbody>
+            <td>Numero totale di piatti e bevande serviti dall'apertura</td>
+            <td>{{numberOfDishesServedSinceOpening()}}</td>
+        </tbody>
+        <tbody>
+            <td>Guadagno totale</td>
+            <td>{{moneyearned() | currency: '€' : 'code' : '1.2' : 'it-IT'}}</td>
+        </tbody>
+    </table>
+</div>

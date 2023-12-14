@@ -1,0 +1,33 @@
+<div class="p-4">
+    <div class="container">
+        <h1>Tavoli</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 30%">Numero del tavolo</th>
+                    <th style="width: 30%">Posti a sedere</th>
+                    <th style="width: 30%">Id ordine</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let table of tables">
+                    <td>{{table.tableId}}</td>
+                    <td>{{table.seats}}</td>
+                    <td *ngIf="!table.orderId">TAVOLO LIBERO</td>
+                    <td *ngIf="table.orderId">{{table.orderId}}</td>
+                    <td style="white-space: nowrap">
+                        <a routerLink="orders/{{table.tableId}}/{{table.orderId}}">
+                            <span *ngIf="!table.orderId" class="btn btn-sm btn-primary me-1">Nuovo ordine</span>
+                            <span *ngIf="table.orderId && !checkpaymentrequest(table.orderId)"  class="btn btn-sm btn-primary me-1">Ordina</span>
+
+                        </a>
+                        &nbsp;<button *ngIf="(!table.isDeleting && table.orderId) && check(table.orderId)" (click)="deleteOrder(table.orderId)"
+                        class="btn btn-sm btn-danger" [disabled]="table.isDeleting">
+                            Cancella
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

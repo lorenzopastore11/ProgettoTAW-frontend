@@ -1,0 +1,22 @@
+<!-- nav -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="user">
+  <div class="navbar-nav">
+      <a class="nav-item nav-link" *ngIf="user.role==='CASSIERE'" routerLink="/cashier" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a class="nav-item nav-link" *ngIf="user.role==='CASSIERE'" routerLink="/users" routerLinkActive="active">Utenti</a>
+      <a class="nav-item nav-link" *ngIf="user.role==='CASSIERE'" routerLink="/tables" routerLinkActive="active">Tavoli</a>
+      <a class="nav-item nav-link" *ngIf="user.role==='CASSIERE'" routerLink="/dishes" routerLinkActive="active">Piatti</a>
+      <a class="nav-item nav-link" *ngIf="user.role==='CASSIERE'" routerLink="/data" routerLinkActive="active">Statistiche</a>
+  </div><div class="navbar-nav"> 
+      <a class="nav-link justify-content-center">Tu sei [{{user.firstName}}, {{user.role}}]</a></div>
+      <div class="navbar-nav">
+      <button class="btn btn-link nav-item nav-link justify-content-end" (click)="logout()">Esci</button>
+  </div>
+</nav>
+
+<!-- main app container -->
+<div class="container">
+  <alert></alert>
+  <router-outlet></router-outlet>
+</div>

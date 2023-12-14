@@ -1,0 +1,33 @@
+<div class="p-4">
+    <div class="container">
+        <h1>{{title}}</h1>
+        <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label">Piatti</label>
+                        <select class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" >
+                            <option></option>
+                            <option *ngFor="let dish of dishes" [value] ="dish.name">
+                                {{dish.name}}
+                            </option>
+                        </select>
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">Piatto richiesto</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button [disabled]="submitting" class="btn btn-primary">
+                    <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                    Salva
+                </button>
+                <a routerLink="../../" class="btn btn-link">Annulla</a>
+            </div>
+        </form>
+        <div *ngIf="loading" class="text-center m-5">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
+    </div>
+</div>

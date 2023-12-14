@@ -1,0 +1,34 @@
+<div class="p-4">
+    <div class="container">
+        <h1>Tavoli</h1>
+        <a routerLink="add" class="btn btn-sm btn-success mb-2">Aggiungi tavolo</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 30%">Numero del tavolo</th>
+                    <th style="width: 30%">Posti a sedere</th>
+                    <th style="width: 10%">Cameriere referente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let table of tables">
+                    <td>{{table.tableId}}</td>
+                    <td>{{table.seats}}</td>
+                    <td>{{table.assignedTo}}</td>
+                    <td style="white-space: nowrap">
+                        <a routerLink="edit/{{table.id}}" class="btn btn-sm btn-primary me-1">Modifica</a>
+                        &nbsp;<button (click)="deleteTable(table.id)" class="btn btn-sm btn-danger" [disabled]="table.isDeleting">
+                            <span *ngIf="table.isDeleting" class="spinner-border spinner-border-sm"></span>
+                            <span *ngIf="!table.isDeleting">Cancella</span>
+                        </button>
+                    </td>
+                </tr>
+                <!--<tr *ngIf="!tables">
+                    <td colspan="4" class="text-center">
+                        <span class="spinner-border spinner-border-lg align-center"></span>
+                    </td>
+                </tr>-->
+            </tbody>
+        </table>
+    </div>
+</div>

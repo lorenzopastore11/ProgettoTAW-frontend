@@ -1,0 +1,25 @@
+<div class="p-4">
+    <div class="container">
+        <h1>Situazione dei tavoli</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 30%">Numero del tavolo</th>
+                    <th style="width: 20%">Posti a sedere</th>
+                    <th style="width: 30%">Cameriere referente</th>
+                    <th style="width: 20%">Libero/occupato</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let table of tables">
+                    <td>{{table.tableId}}</td>
+                    <td>{{table.seats}}</td>
+                    <td>{{table.assignedTo}}</td>
+                    <td *ngIf="table.orderId"> <p style="color: red;">&#9673;</p></td>
+                    <td *ngIf="!table.orderId"> <p style="color:green">&#9673;</p></td>
+                    <td *ngIf="table.orderId" style="white-space: nowrap" >
+                        <a  *ngIf="table.orderId" routerLink="orders/{{table.tableId}}/{{table.orderId}}" class="btn btn-sm btn-primary me-1">Vai all'ordine</a>
+                    </td>
+            </tbody>
+        </table>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>

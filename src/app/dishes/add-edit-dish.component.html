@@ -1,0 +1,54 @@
+<div class="p-4">
+    <div class="container">
+        <h1>{{title}}</h1>
+        <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label">Nome piatto</label>
+                    <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">Nome del piatto richiesto</div>
+                    </div>
+                </div>
+                <div class="mb-3 col">
+                    <label class="form-label">Prezzo</label>
+                    <input type="number" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                        <div *ngIf="f.price.errors.required">Prezzo richiesto</div>
+                        <div *ngIf="f.price.errors.min">Il valore del prezzo deve esere almeno maggiore o uguale a zero</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label">Tipo</label>
+                        <select class="form-control" formControlName="type" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" >
+                            <option></option>
+                            <option *ngFor="let type of types" [value]="type.value">
+                                {{type.value}}
+                            </option>
+                        </select>
+                    <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                        <div *ngIf="f.type.errors.required">Tipo di piatto richiesto</div>
+                    </div>
+                </div>
+                <div class="mb-3 col">
+                    <label class="form-label">
+                        Descrizione
+                    </label>
+                    <input type="text" formControlName="description" class="form-control"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button [disabled]="submitting" class="btn btn-primary">
+                    <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                    Salva
+                </button>
+                <a routerLink="/dishes" class="btn btn-link">Annulla</a>
+            </div>
+        </form>
+        <div *ngIf="loading" class="text-center m-5">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
+    </div>
+</div>
